@@ -23,20 +23,22 @@ class Game:
 
             if step[0] == "attack":
                 res = self.attack(self.bot1, self.bot2, 1, step[1], step[2])
-
             elif step[0] == "move":
                 res = self.move(self.bot1, step[1], step[2])
+            else:
+                res = 0
 
             if res == 2:
                 return 1
 
-            step = self.bot12.consider_step(self.game_field)
+            step = self.bot2.consider_step(self.game_field)
 
             if step[0] == "attack":
                 res = self.attack(self.bot2, self.bot1, 2, step[1], step[2])
-
             elif step[0] == "move":
-                res = self.attack(self.bot2, step[1], step[2])
+                res = self.move(self.bot2, step[1], step[2])
+            else:
+                res = 0
 
             if res == 2:
                 return 2
