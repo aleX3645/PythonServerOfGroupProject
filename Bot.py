@@ -10,7 +10,10 @@ class Bot:
     __tiredness = 0.0
     __rang = 0.0
     __damage = 0.0
-    __game_field = [[]]
+    __game_field = []
+
+    def __init__(self, game_field: []):
+        self.__game_field = game_field
 
     def __init__(self, charge: float, weight: float, speed: float, tiredness: float, damage: float, rang: float, position_x: int, position_y: int, game_field):
         self.__game_field = game_field
@@ -23,6 +26,8 @@ class Bot:
         self.__position_y = position_y
         self.__position_x = position_x
 
+    # return ["typeOfMove", coordX, coordY]
+    # types "Move", "Attack"
     def consider_step(self, game_field):
         self.__game_field = game_field
 

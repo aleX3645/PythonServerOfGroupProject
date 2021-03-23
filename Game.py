@@ -1,8 +1,6 @@
-from math import sqrt
 from random import gauss
 
 from Bot import Bot
-from BotMapper import BotMapper
 
 
 class Game:
@@ -46,6 +44,7 @@ class Game:
             self.r += 1
         return 0
 
+    # -1 - error, 1- hit, 2 - kill, 0 - miss
     def attack(self, bot: Bot, attacked_bot: Bot, bot_n: int, x: int, y: int):
         range_of_attack = abs(bot.get_position_x()) - abs(x) + abs(bot.get_position_y()) - abs(y)
         if bot.get_range() < range_of_attack | x < 0 | y < 0 | len(self.game_field) < x | len(self.game_field[x]) < y:
