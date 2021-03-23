@@ -70,7 +70,7 @@ class GameServer:
                 if hp <= 0:
                     return 2
                 attacked_bot.set_tiredness(hp)
-                print(attacked_bot.get_tiredness())
+                print(str(attacked_bot.get_tiredness()))
                 return 1
             else:
                 print("miss")
