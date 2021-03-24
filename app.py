@@ -1,8 +1,6 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
-import json
 
-from Bot import Bot
 from BotMapper import BotMapper
 from GameServer import GameServer
 
@@ -35,7 +33,11 @@ class Fight(Resource):
 
         game = GameServer(bot1_string, bot2_string, bot_stat1, bot_stat2, field)
         res = game.start()
-        return res
+
+        return jsonify(
+            {"winner": res[0], "fight_map": res[1]}
+        )
+
 
     def get_position_for(self, field, t: int):
         for x in range(len(field)):

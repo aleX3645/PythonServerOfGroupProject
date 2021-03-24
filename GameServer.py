@@ -8,6 +8,8 @@ from BotMapper import BotMapper
 class GameServer:
     r = 0
 
+    __fight_map = ""
+
     bot1: Bot
     bot2: Bot
     bot_stats1: BotMapper
@@ -32,27 +34,33 @@ class GameServer:
 
             if step[0] == "attack":
                 res = self.attack(self.bot_stats1, self.bot_stats2, 1, step[1], step[2])
+                self.__fight_map += "1," + "attack," + str(step[1]) +"," + str(step[2]) + ";"
 
             elif step[0] == "move":
                 res = self.attack(self.bot_stats1, self.bot_stats2, 1, step[1], step[2])
+                self.__fight_map += "1," + "move," + str(step[1]) + "," + str(step[2]) + ";"
             else:
                 res = 0
 
             if res == 2:
-                return 1
+                self.__fight_map += "1," + "kill," + str(step[1]) + "," + str(step[2]) + ";"
+                return [1, self.__fight_map]
 
             step = self.bot2.consider_step(self.game_field)
 
             if step[0] == "attack":
                 res = self.attack(self.bot_stats2, self.bot_stats1, 2, step[1], step[2])
+                self.__fight_map += "2," + "attack," + str(step[1]) + "," + str(step[2]) + ";"
 
             elif step[0] == "move":
                 res = self.attack(self.bot_stats2, self.bot_stats1, 2, step[1], step[2])
+                self.__fight_map += "2," + "move," + str(step[1]) + "," + str(step[2]) + ";"
             else:
                 res = 0
 
             if res == 2:
-                return 2
+                self.__fight_map += "1," + "kill," + str(step[1]) + "," + str(step[2]) + ";"
+                return [2, self.__fight_map]
 
             self.r += 1
         return 0
@@ -70,10 +78,8 @@ class GameServer:
                 if hp <= 0:
                     return 2
                 attacked_bot.set_tiredness(hp)
-                print(str(attacked_bot.get_tiredness()))
                 return 1
             else:
-                print("miss")
                 return 0
 
     # -1 - error, 1 - move
