@@ -11,7 +11,7 @@ array = []
 
 
 class Fight(Resource):
-    def get(self):
+    def post(self):
         return self.start_game_by_json(request.get_json())
 
     def start_game_by_json(self, req):
